@@ -1,0 +1,6 @@
+/etc/hosts 100;46
+/etc/php5/conf.d/cubrid.ini 1;1
+/etc/apt/sources.list.d/ilap-lwp-lucid.list 1;52
+/etc/apt/sources.list.d/medibuntu.list 3;2
+/home/nergal/Загрузки/Linux/cubrid.ini 1;16
+/etc/apache2/sites-available/default 34;32

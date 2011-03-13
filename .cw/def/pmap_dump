@@ -1,0 +1,6 @@
+#!/home/nergal/.cw/bin/cw
+path /sbin:/usr/sbin:/bin:/usr/bin:<env>
+base cyan
+digit cyan+:default
+match yellow:default tcp
+match green+:default udp

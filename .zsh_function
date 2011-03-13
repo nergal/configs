@@ -1,0 +1,129 @@
+precmd() {
+	[[ -t 1 ]] || return
+	case $TERM in
+		*xterm*|rxvt|(dt|k|E|a)term*) print -Pn "\e]0;[%~] %m\a"    ;;
+		screen(-bce|.linux)) print -Pn "\ek[%~]\e\" && print -Pn "\e]0;[%~] %m (screen)\a" ;;  #заголовок для скрина
+	esac
+}
+
+preexec() {
+	[[ -t 1 ]] || return
+	case $TERM in
+		*xterm*|rxvt|(dt|k|E|a)term*) print -Pn "\e]0;<$1> [%~] %m\a" ;;
+		screen(-bce|.linux)) print -Pn "\ek<$1> [%~]\e\" && print -Pn "\e]0;<$1> [%~] %m (screen)\a" ;; #заголовок для скрина
+	esac
+}
+
+ccd() { cd $1 && ls}
+mk(){ mkdir $1; cd $1 }
+
+clc() {
+	echo 3 | sudo tee /proc/sys/vm/drop_caches
+	sync
+}
+
+pidtop() {top -p `pidof $@ | tr ' ' ','`}
+calc() {echo "${1}"|bc -l;}
+
+owned()
+{
+    sudo find $1 -type d -exec chmod 775 {} \;
+    sudo find $1 -type f -exec chmod 664 {} \;
+    sudo find $1 -exec chgrp dev {} \;
+}
+
+lsofg()
+{
+    if [ $# -lt 1 ] || [ $# -gt 1 ]; then
+        echo "grep lsof"
+        echo "usage: losfg [port/program/whatever]"
+    else
+        lsof | grep -i $1 | less
+    fi
+}
+
+psg()
+{
+    if [ $# -lt 1 ] || [ $# -gt 1 ]; then
+        echo "grep running processes"
+        echo "usage: psg [process]"
+    else
+        ps aux | grep USER | grep -v grep
+        ps aux | grep -i $1 | grep -v grep
+    fi
+}
+
+apath()
+{
+    if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+        echo "Temporarily add to PATH"
+        echo "usage: apath [dir]"
+    else
+        PATH=$1:$PATH
+    fi
+}
+
+ds()
+{
+    echo "size of directories in MB"
+    if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+        echo "you did not specify a directy, using pwd"
+        DIR=$(pwd)
+        find $DIR -maxdepth 1 -type d -exec du -sm \{\} \; | sort -nr
+    else
+        find $1 -maxdepth 1 -type d -exec du -sm \{\} \; | sort -nr
+    fi
+}
+
+ff()
+{
+    if [ $# -lt 1 ]; then
+        echo "Find files matching pattern"
+        echo "usage: ff [searchpattern]"
+    else
+        find . -name '*'$1'*' ;
+    fi
+}
+
+fe()
+{
+    if [ $# -lt 1 ]; then
+        echo "Find files matching pattern and a command on them.  (Hint: quote the command)"
+        echo "usage: fe [searchpattern] [command to execute]"
+    else
+        find . -name '*'$1'*' -exec $2 \{\} \;
+    fi
+}
+
+ii()
+{
+    echo -e "\n${RED}Имя машины:$NC " ; hostname
+    echo -e "\n${RED}Дополнительная информация:$NC " ; uname -a
+    echo -e "\n${RED}Пользователь в системе:$NC " ; w -h
+    echo -e "\n${RED}Текущая дата:$NC " ; date
+    echo -e "\n${RED}Статистика системы:$NC " ; uptime
+    echo -e "\n${RED}Дисковое пространство:$NC " ; df -h
+    echo -e "\n${RED}Статистика памяти (в MB):$NC " ; free -m
+    echo -e "\n${RED}Айпишник:$NC " ; ips
+}
+
+function wgets()
+{
+  wget -c --referer="http://www.google.com" --user-agent="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6" \
+  --header="Accept:text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5" \
+  --header="Accept-Language: en-us,en;q=0.5" \
+  --header="Accept-Encoding: gzip,deflate" \
+  --header="Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7" \
+  --header="Keep-Alive: 300" "$@"
+}
+
+ips()
+{
+    /sbin/ifconfig eth0 | grep 'inet addr' | awk '{print $2}' | sed 's/addr://'
+}
+
+md5()
+{
+    echo -n $@ | md5sum
+}
+

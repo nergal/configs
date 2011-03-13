@@ -1,0 +1,39 @@
+autodetach            on
+crlf                  off
+deflogin              off
+hardcopy_append       on
+nethack               on
+startup_message       off
+
+termcapinfo           xterm "ve=\E[?25h\E[?17;0;64c" # red
+vbell                 off
+
+defscrollback         3000
+silencewait           15
+
+#shell                 zsh
+caption               always "%{= kw}%?%-Lw%?%{+b kw}%n*%t%f %?(%u)%?%{= kw}%?%+Lw%?"
+hardstatus            alwayslastline "%{+b kr}[ %H ] %{ky} Load: %l %-=%{kb} %c  %d.%m.%Y"
+sorendition           gK
+
+activity              "activity in %n (%t) [%w:%s]~"
+bell                  "bell     in %n (%t) [%w:%s]~"
+pow_detach_msg        "BYE"
+vbell_msg             " *beep* "
+
+bind A  title
+bind K  kill
+bind M  monitor
+bind P  paste .
+bind V  screen -t 'vim' 0 vim
+bind ^Y screen -t log watch -n 5 rail -40 /var/log/syslog
+
+bind .
+bind ^\
+bind \\
+
+msgwait 1
+version
+msgwait 2
+
+echo "welcome :-)"

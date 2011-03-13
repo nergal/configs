@@ -1,0 +1,77 @@
+alias ze="vim ~/.zshrc;source ~/.zshrc"
+
+alias quit="exit"
+alias ls="ls -la --color=auto -h"
+alias s="sudo"
+alias c="clear"
+alias cp="cp -i"
+alias df="df -h"
+alias mc="mc --skin=bluemoon"
+alias inst="sudo apt-get install"
+alias la="ls -A"
+alias ll="ls -lh"
+alias lla="ls -lhA"
+alias logs="tail -f /var/log/messages /var/log/*log"
+alias mkdir="mkdir -p"
+alias mv="mv -i"
+alias path="env | grep PATH"
+alias ps="ps aux"
+alias rm="rm -i"
+alias sr="screen -d -RR"
+alias tc="tar cfvz"
+alias tx="tar xfvz"
+alias vi="vim"
+alias ..='cd ..'
+alias du='du -kh'
+alias df='df -kTh'
+alias wine='LC_ALL=ru_RU.UTF-8 wine'
+alias wget='wget --no-check-certificate'
+alias gp='pwgen -s -B 12 1'
+
+alias xs='cd'
+alias vf='cd'
+alias moer='more'
+alias moew='more'
+alias kk='ll'
+
+alias grep='grep --color=auto'
+alias df='df -h'
+alias du='du -h'
+alias mv='nocorrect mv -i'
+alias cp='nocorrect cp -iR'
+alias rm='nocorrect rm'
+alias rmf='nocorrect rm -f'
+alias rmrf='nocorrect rm -fR'
+alias mkdir='nocorrect mkdir'
+alias ls='ls -F --color=auto'
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+
+alias -g H="| head"
+alias -g T="| tail"
+alias -g G="| grep"
+alias -g L="| less"
+alias -g M="| most"
+alias -g B="&|"
+alias -g HL="--help"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+
+alias -g KU="| iconv -c -f koi8r -t utf8"
+alias -g CU="| iconv -c -f cp1251 -t utf8"
+alias -g UK="| iconv -c -f utf8 -t koi8r"
+alias -g UC="| iconv -c -f utf8 -t cp1251"
+
+alias screen="screen -DR"
+alias ncmpc="ncmpcpp"
+
+alias lls="ls -l | sed -e 's/--x/1/g' -e 's/-w-/2/g' -e 's/-wx/3/g' -e 's/r--/4/g'  -e 's/r-x/5/g' -e 's/rw-/6/g' -e 's/rwx/7/g' -e 's/---/0/g'"
+alias dirf='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"'
+alias mkpass="head -c6 /dev/urandom | xxd -ps"
+
+ccopy(){ cp $1 /tmp/ccopy.$1; }
+alias cpaste="ls /tmp/ccopy.* | sed 's|/tmp/ccopy.||' | xargs -I % mv /tmp/ccopy.% ./%"
+
